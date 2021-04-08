@@ -1,0 +1,32 @@
+body {
+    margin: 50px auto;
+}
+
+.body-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 300px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-field {
+    margin: 5px;
+}
+
+.library-wrapper {
+    margin: 20px;
+    width: 500px;
+}
+
+.book-card {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    width: 50%;
+}
