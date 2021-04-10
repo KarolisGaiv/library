@@ -24,21 +24,13 @@ function Book(title, author, pages, read) {
 function addBookToLibrary() {
     const book = new Book(bookName.value, bookAuthor.value, bookPages.value, bookStatus.value)
 
-    if (bookName == "" || bookAuthor == "") {
+    if (bookName.value == "" || bookAuthor.value == "") {
         errMsg.innerHTML = "Please enter something"
         return false;
     }
 
     myLibrary.push(book)
     document.querySelector(".form").reset()
-    resetFormFields()
-}
-
-function resetFormFields() {
-    bookName = ""
-    bookAuthor = ""
-    bookPages = ""
-    bookStatus = ""
 }
 
 let bookName = document.getElementById("book-name")
