@@ -34,8 +34,7 @@ let bookStatus = document.getElementById("book-status")
 formBtn.addEventListener("click", displayForm)
 addBookBtn.addEventListener("click", addBookToLibrary)
 
-
-// Constructors
+// *****Constructors*****
 
 function Book(title, author, pages, read) {
     this.title = title
@@ -47,6 +46,7 @@ function Book(title, author, pages, read) {
 // *****Functions******
 
 function addBookToLibrary() {
+    const previousLibrary = myLibrary.length
     const book = new Book(bookName.value, bookAuthor.value, bookPages.value, bookStatus.value)
 
     if (bookName.value == "" || bookAuthor.value == "") {
@@ -56,10 +56,15 @@ function addBookToLibrary() {
 
     myLibrary.push(book)
     document.querySelector(".form").reset()
+    // Update displayed book cards after new book is added
+    if (myLibrary.length > previousLibrary) {
+        bookContainer.innerHTML = ""
+        displayLibrary(myLibrary)
+    }
 }
 
-function displayLibrary() {
-    myLibrary.forEach((item) => {
+function displayLibrary(arr) {
+    arr.forEach((item) => {
         // Create div for each book
         book = document.createElement("div")
         book.classList.add("book-card")
@@ -74,14 +79,14 @@ function displayLibrary() {
     })
 }
 
-function displayForm(){
+
+function displayForm() {
     modalForm.style.display = "block"
 }
 
 
 
-
-displayLibrary();
+displayLibrary(myLibrary);
 
 
 
