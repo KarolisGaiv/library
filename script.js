@@ -2,19 +2,19 @@ let myLibrary = [
     {
         name: "Hobbit",
         author: "Tolken",
-        pages: 295,
+        pages: `295 Pages`,
         read: false
     },
     {
         name: "Angels and Demons",
         author: "Dan Brown",
-        pages: 300,
+        pages: `300 Pages`,
         read: true
     },
     {
         name: "Outliers",
         author: "Malcolm Gladwell",
-        pages: 432,
+        pages: `432 Pages`,
         read: true
     }
 ];
@@ -23,6 +23,7 @@ let myLibrary = [
 const formBtn = document.querySelector(".formBtn")
 const modalForm = document.querySelector(".modal")
 const addBookBtn = document.querySelector(".add-btn")
+const cancelAddForm = document.querySelector(".cancel-btn")
 const errMsg = document.querySelector(".err-msg")
 const bookContainer = document.querySelector(".library-wrapper")
 let bookName = document.getElementById("book-name")
@@ -31,16 +32,30 @@ let bookPages = document.getElementById("book-pages")
 let bookStatus = document.getElementById("book-status")
 
 // ****Event listeners****
-formBtn.addEventListener("click", displayForm)
+
+// Open "Add new book form"
+formBtn.onclick = function() {
+    modalForm.style.display = "block"
+}
+
+// Close "Add new book form"
+cancelAddForm.onclick = function() {
+    modalForm.style.display = "none"
+}
+
+
+
+
 addBookBtn.addEventListener("click", addBookToLibrary)
+// cancelAddForm.addEventListener("click", closeForm)
 
 // *****Constructors*****
 
 function Book(title, author, pages, read) {
     this.title = title
     this.author = author
-    this.pages = pages
-    this.read = read
+    this.pages = pages + " Pages"
+    read ? this.read = "Read" : this.read = "Not Read"
 }
 
 // *****Functions******
