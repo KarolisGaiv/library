@@ -33,29 +33,27 @@ let bookStatus = document.getElementById("book-status")
 
 // ****Event listeners****
 
-// Open "Add new book form"
-formBtn.onclick = function() {
+// Open new book form
+formBtn.onclick = function () {
     modalForm.style.display = "block"
 }
 
-// Close "Add new book form"
-cancelAddForm.onclick = function() {
+// Close new book form
+cancelAddForm.onclick = function () {
+    document.querySelector(".form").reset()
     modalForm.style.display = "none"
 }
 
-
-
-
 addBookBtn.addEventListener("click", addBookToLibrary)
-// cancelAddForm.addEventListener("click", closeForm)
+
 
 // *****Constructors*****
 
 function Book(title, author, pages, read) {
     this.title = title
     this.author = author
-    this.pages = pages + " Pages"
-    read ? this.read = "Read" : this.read = "Not Read"
+    pages ? this.pages = `${pages} Pages` : this.pages = "0 Pages"
+    read ? this.read = "Read" : this.read = "Wish to Read"
 }
 
 // *****Functions******
@@ -79,10 +77,11 @@ function addBookToLibrary() {
 }
 
 function displayLibrary(arr) {
-    arr.forEach((item) => {
+    arr.forEach((item, index) => {
         // Create div for each book
         book = document.createElement("div")
         book.classList.add("book-card")
+        book.setAttribute('data-index', `${index}`);
         bookContainer.appendChild(book)
         // Iterate through each book object, add book obj contents to book card div
         Object.keys(item).forEach(key => {
@@ -91,13 +90,30 @@ function displayLibrary(arr) {
             content.innerHTML = `${item[key]}`
             book.appendChild(content)
         })
+        deleteBook = document.createElement("button")
+        deleteBook.classList.add("deleteBtn")
+        deleteBook.innerHTML = "Delete Book"
+        book.appendChild(deleteBook)
+    })
+
+    const deleteBtn = document.querySelectorAll(".deleteBtn")
+    deleteBtn.forEach((button) => {
+        button.onclick = function (e) {
+            const itemToDelete = e.target.parentElement.attributes["data-index"].value
+            const prevLibrary = myLibrary.length
+            myLibrary.splice(itemToDelete, 1)
+            if (myLibrary.length < prevLibrary) {
+                bookContainer.innerHTML = ""
+                displayLibrary(myLibrary)
+            }
+        }
     })
 }
 
 
-function displayForm() {
-    modalForm.style.display = "block"
-}
+
+
+
 
 
 
