@@ -56,6 +56,18 @@ function Book(title, author, pages, read) {
     read ? this.read = "Read" : this.read = "Wish to Read"
 }
 
+// Function changes "Read" status
+Book.prototype.toogleReadStatus = function(currStatus, index) {
+    if(currStatus == "Read") {
+        myLibrary[index].read = "Wish to Read"
+    } else {
+        myLibrary[index].read = "Read"
+    }
+    displayLibrary(myLibrary)
+}
+
+
+
 // *****Functions******
 
 function addBookToLibrary() {
@@ -63,7 +75,7 @@ function addBookToLibrary() {
     const book = new Book(bookName.value, bookAuthor.value, bookPages.value, bookStatus.value)
 
     if (bookName.value == "" || bookAuthor.value == "") {
-        errMsg.innerHTML = "Please enter something"
+        errMsg.innerHTML = "Book name and author has to be filled"
         return false;
     }
 
@@ -71,12 +83,12 @@ function addBookToLibrary() {
     document.querySelector(".form").reset()
     // Update displayed book cards after new book is added
     if (myLibrary.length > previousLibrary) {
-        bookContainer.innerHTML = ""
         displayLibrary(myLibrary)
     }
 }
 
 function displayLibrary(arr) {
+    bookContainer.innerHTML = ""
     arr.forEach((item, index) => {
         // Create div for each book
         book = document.createElement("div")
@@ -90,10 +102,25 @@ function displayLibrary(arr) {
             content.innerHTML = `${item[key]}`
             book.appendChild(content)
         })
+        // Create status change button
+        statusBtn = document.createElement("button")
+        statusBtn.classList.add("statusBtn")
+        statusBtn.innerHTML = "Change Status"
+        book.appendChild(statusBtn)
+        // Create delete button
         deleteBook = document.createElement("button")
         deleteBook.classList.add("deleteBtn")
         deleteBook.innerHTML = "Delete Book"
         book.appendChild(deleteBook)
+    })
+
+    const changeStatusBtn = document.querySelectorAll(".statusBtn")
+    changeStatusBtn.forEach((button) => {
+        button.onclick = function(e) {
+            let currentStatus = e.target.previousSibling.innerHTML
+            let indexToChange = e.target.parentElement.attributes["data-index"].value
+            myLibrary[indexToChange].toogleReadStatus(currentStatus, indexToChange)
+        }
     })
 
     const deleteBtn = document.querySelectorAll(".deleteBtn")
@@ -103,7 +130,6 @@ function displayLibrary(arr) {
             const prevLibrary = myLibrary.length
             myLibrary.splice(itemToDelete, 1)
             if (myLibrary.length < prevLibrary) {
-                bookContainer.innerHTML = ""
                 displayLibrary(myLibrary)
             }
         }
@@ -111,13 +137,13 @@ function displayLibrary(arr) {
 }
 
 
-
-
-
-
-
-
 displayLibrary(myLibrary);
+
+window.onclick = function(e) {
+    if(e.target == modalForm) {
+        modalForm.style.display = "none"
+    }
+}
 
 
 
