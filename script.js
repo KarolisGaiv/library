@@ -1,23 +1,4 @@
-let myLibrary = [
-    {
-        name: "Hobbit",
-        author: "Tolken",
-        pages: `295 Pages`,
-        read: false
-    },
-    {
-        name: "Angels and Demons",
-        author: "Dan Brown",
-        pages: `300 Pages`,
-        read: true
-    },
-    {
-        name: "Outliers",
-        author: "Malcolm Gladwell",
-        pages: `432 Pages`,
-        read: true
-    }
-];
+let myLibrary = [];
 
 // ****Selectors*****
 const formBtn = document.querySelector(".formBtn")
@@ -29,7 +10,8 @@ const bookContainer = document.querySelector(".library-wrapper")
 let bookName = document.getElementById("book-name")
 let bookAuthor = document.getElementById("book-author")
 let bookPages = document.getElementById("book-pages")
-let bookStatus = document.getElementById("book-status")
+// let bookStatus = document.getElementById("book-status")
+const bookStatus = document.getElementById("book-status")
 
 // ****Event listeners****
 
@@ -39,10 +21,7 @@ formBtn.onclick = function () {
 }
 
 // Close new book form
-cancelAddForm.onclick = function () {
-    document.querySelector(".form").reset()
-    modalForm.style.display = "none"
-}
+cancelAddForm.addEventListener("click", closeForm)
 
 addBookBtn.addEventListener("click", addBookToLibrary)
 
@@ -57,8 +36,8 @@ function Book(title, author, pages, read) {
 }
 
 // Function changes "Read" status
-Book.prototype.toogleReadStatus = function(currStatus, index) {
-    if(currStatus == "Read") {
+Book.prototype.toogleReadStatus = function (currStatus, index) {
+    if (currStatus == "Read") {
         myLibrary[index].read = "Wish to Read"
     } else {
         myLibrary[index].read = "Read"
@@ -72,7 +51,7 @@ Book.prototype.toogleReadStatus = function(currStatus, index) {
 
 function addBookToLibrary() {
     const previousLibrary = myLibrary.length
-    const book = new Book(bookName.value, bookAuthor.value, bookPages.value, bookStatus.value)
+    const book = new Book(bookName.value, bookAuthor.value, bookPages.value, bookStatus.checked)
 
     if (bookName.value == "" || bookAuthor.value == "") {
         errMsg.innerHTML = "Book name and author has to be filled"
@@ -80,11 +59,13 @@ function addBookToLibrary() {
     }
 
     myLibrary.push(book)
-    document.querySelector(".form").reset()
+    closeForm()
+
     // Update displayed book cards after new book is added
     if (myLibrary.length > previousLibrary) {
         displayLibrary(myLibrary)
     }
+
 }
 
 function displayLibrary(arr) {
@@ -116,7 +97,7 @@ function displayLibrary(arr) {
 
     const changeStatusBtn = document.querySelectorAll(".statusBtn")
     changeStatusBtn.forEach((button) => {
-        button.onclick = function(e) {
+        button.onclick = function (e) {
             let currentStatus = e.target.previousSibling.innerHTML
             let indexToChange = e.target.parentElement.attributes["data-index"].value
             myLibrary[indexToChange].toogleReadStatus(currentStatus, indexToChange)
@@ -136,14 +117,16 @@ function displayLibrary(arr) {
     })
 }
 
-
-displayLibrary(myLibrary);
-
-window.onclick = function(e) {
-    if(e.target == modalForm) {
-        modalForm.style.display = "none"
-    }
+function closeForm() {
+    document.querySelector(".form").reset()
+    modalForm.style.display = "none"
 }
 
+// displayLibrary(myLibrary);
 
-
+// Close modal when user clicks outside form
+window.onclick = function(e) {
+    if(e.target == modalForm) {
+        closeForm()
+    }
+}

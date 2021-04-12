@@ -34,8 +34,10 @@ body {
 .modal {
     display: none;
     position: fixed;
-    margin: 100px;
-    width: 25%;
+    padding: 100px;
+    width: 100%;
+    top: 0;
+    height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
 }
