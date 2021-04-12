@@ -30,3 +30,20 @@ body {
     padding: 20px;
     width: 50%;
 }
+
+.modal {
+    display: none;
+    position: fixed;
+    margin: 100px;
+    width: 25%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}

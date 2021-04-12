@@ -1,16 +1,3 @@
-// ****Selectors*****
-
-let bookName = document.getElementById("book-name")
-let bookAuthor = document.getElementById("book-author")
-let bookPages = document.getElementById("book-pages")
-let bookStatus = document.getElementById("book-status")
-const addBtn = document.querySelector(".add-btn")
-const errMsg = document.querySelector(".err-msg")
-const bookContainer = document.querySelector(".library-wrapper")
-
-// ****Event listeners****
-addBtn.addEventListener("click", addBookToLibrary)
-
 let myLibrary = [
     {
         name: "Hobbit",
@@ -23,8 +10,30 @@ let myLibrary = [
         author: "Dan Brown",
         pages: 300,
         read: true
+    },
+    {
+        name: "Outliers",
+        author: "Malcolm Gladwell",
+        pages: 432,
+        read: true
     }
 ];
+
+// ****Selectors*****
+const formBtn = document.querySelector(".formBtn")
+const modalForm = document.querySelector(".modal")
+const addBookBtn = document.querySelector(".add-btn")
+const errMsg = document.querySelector(".err-msg")
+const bookContainer = document.querySelector(".library-wrapper")
+let bookName = document.getElementById("book-name")
+let bookAuthor = document.getElementById("book-author")
+let bookPages = document.getElementById("book-pages")
+let bookStatus = document.getElementById("book-status")
+
+// ****Event listeners****
+formBtn.addEventListener("click", displayForm)
+addBookBtn.addEventListener("click", addBookToLibrary)
+
 
 // Constructors
 
@@ -64,6 +73,13 @@ function displayLibrary() {
         })
     })
 }
+
+function displayForm(){
+    modalForm.style.display = "block"
+}
+
+
+
 
 displayLibrary();
 
