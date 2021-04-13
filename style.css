@@ -83,7 +83,8 @@ body {
     padding: 10px;
 }
 
-.statusBtn {
+.statusBtn,
+.add-btn {
     color: white;
     background: #649715;
     border: none;
@@ -93,11 +94,13 @@ body {
     transition: all 0.3s ease;
 }
 
-.statusBtn:hover {
+.statusBtn:hover,
+.add-btn:hover {
     background: #1ec41e;
 }
 
-.deleteBtn {
+.deleteBtn,
+.cancel-btn {
     color: white;
     background: #ec5b5b;
     border: none;
@@ -107,6 +110,7 @@ body {
     transition: all 0.3s ease;
 }
 
+.cancel-btn:hover,
 .deleteBtn:hover {
     background: #fd0202;
 }
@@ -138,8 +142,24 @@ body {
     background-color: #ccadad;
     border-radius: 5px;
     margin: auto;
-    padding: 20px;
+    padding: 10px;
     width: 400px;
+}
+
+.checkbox-wrapper {
+    display: inline-flex;
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+.form-buttons {
+    margin-top: 20px;
+    padding-left: 10px;
+}
+
+.add-btn,
+.cancel-btn {
+    font-size: 20px;
 }
 
 input[type=number] {
