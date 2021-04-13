@@ -56,7 +56,6 @@ function addBookToLibrary() {
     const book = new Book(bookName.value, bookAuthor.value, bookPages.value, bookStatus.checked)
 
     if (bookName.value == "" || bookAuthor.value == "") {
-        errMsg.innerHTML = "Book name and author has to be filled"
         return false;
     }
 
@@ -119,7 +118,7 @@ function displayLibrary(arr) {
     const deleteBtn = document.querySelectorAll(".deleteBtn")
     deleteBtn.forEach((button) => {
         button.onclick = function (e) {
-            const itemToDelete = e.target.parentElement.attributes["data-index"].value
+            const itemToDelete = e.target.parentElement.parentElement.attributes["data-index"].value
             const prevLibrary = myLibrary.length
             myLibrary.splice(itemToDelete, 1)
             removeLocalBook(itemToDelete)

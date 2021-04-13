@@ -20,8 +20,8 @@
                 <div class="form-wrapper">
                     <form class="form">
                         <h2 class="form-header">Enter New Book</h2>
-                        <input type="text" placeholder="Book Name" class="form-field" id="book-name">
-                        <input type="text" placeholder="Author" class="form-field" id="book-author">
+                        <input type="text" placeholder="Book Name" class="form-field" id="book-name" required>
+                        <input type="text" placeholder="Author" class="form-field" id="book-author" required>
                         <input type="number" placeholder="Number of Pages" class="form-field" id="book-pages">
                         <label for="readStatus" class="checkbox-wrapper">
                             Have you read it? <input type="checkbox" id="book-status" name="readStatus"></label>
@@ -35,7 +35,7 @@
         </div>
         <div class="library-wrapper"></div>
     </div>
-    <div class="err-msg"></div>
+    
 
     <script src="script.js"></script>
 </body>
