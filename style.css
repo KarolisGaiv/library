@@ -71,6 +71,34 @@ body {
     padding: 10px;
 }
 
+.statusBtn {
+    color: white;
+    background: #649715;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+
+.statusBtn:hover {
+    background: #1ec41e;
+}
+
+.deleteBtn {
+    color: white;
+    background: #ec5b5b;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+
+.deleteBtn:hover {
+    background: #fd0202;
+}
+
 .detailsWrapper {
     margin-left: 10px;
     max-width: 250px;
