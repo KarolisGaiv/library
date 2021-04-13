@@ -113,6 +113,7 @@ function displayLibrary(arr) {
             const itemToDelete = e.target.parentElement.attributes["data-index"].value
             const prevLibrary = myLibrary.length
             myLibrary.splice(itemToDelete, 1)
+            removeLocalBook(itemToDelete)
             if (myLibrary.length < prevLibrary) {
                 displayLibrary(myLibrary)
             }
@@ -147,13 +148,25 @@ function getBooks() {
         books = JSON.parse(localStorage.getItem("books"))
     }
 
-    books.forEach(function(book){
+    books.forEach(function (book) {
         const existingBook = new Book(book.title, book.author, book.pages, book.read)
 
         myLibrary.push(existingBook)
         displayLibrary(myLibrary)
     })
+}
 
+function removeLocalBook(book) {
+    // Check if book already exist
+    let books;
+    if (localStorage.getItem("books") === null) {
+        books = []
+    } else {
+        books = JSON.parse(localStorage.getItem("books"))
+    }
+
+    books.splice(book, 1)
+    localStorage.setItem("books", JSON.stringify(books))
 }
 
 
