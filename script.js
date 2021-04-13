@@ -39,7 +39,7 @@ function Book(title, author, pages, read) {
 
 // Function changes "Read" status
 Book.prototype.toogleReadStatus = function (currStatus, index) {
-    if (currStatus == "Read") {
+    if (currStatus == "Read: Read") {
         myLibrary[index].read = "Wish to Read"
     } else {
         myLibrary[index].read = "Read"
@@ -109,8 +109,8 @@ function displayLibrary(arr) {
     const changeStatusBtn = document.querySelectorAll(".statusBtn")
     changeStatusBtn.forEach((button) => {
         button.onclick = function (e) {
-            let currentStatus = e.target.previousSibling.innerHTML
-            let indexToChange = e.target.parentElement.attributes["data-index"].value
+            let currentStatus = e.target.parentElement.previousSibling.lastChild.innerHTML
+            let indexToChange = e.target.parentElement.parentElement.attributes["data-index"].value
             myLibrary[indexToChange].toogleReadStatus(currentStatus, indexToChange)
         }
     })
