@@ -40,10 +40,19 @@ body {
 .form {
     display: flex;
     flex-direction: column;
+    margin: 10px;
+}
+
+.form-header {
+    margin: 0;
+    text-align: center;
 }
 
 .form-field {
-    margin: 5px;
+    border: none;
+    font-size: 15px;
+    margin: 10px;
+    padding: 15px;
 }
 
 .library-wrapper {
@@ -126,9 +135,19 @@ body {
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: #ccadad;
+    border-radius: 5px;
     margin: auto;
     padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+    width: 400px;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

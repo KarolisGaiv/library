@@ -159,7 +159,6 @@ function getBooks() {
 
     books.forEach(function (book) {
         const existingBook = new Book(book.title, book.author, book.pages, book.read)
-        console.log(book);
 
         myLibrary.push(existingBook)
         displayLibrary(myLibrary)
