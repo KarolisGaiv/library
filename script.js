@@ -10,10 +10,12 @@ const bookContainer = document.querySelector(".library-wrapper")
 let bookName = document.getElementById("book-name")
 let bookAuthor = document.getElementById("book-author")
 let bookPages = document.getElementById("book-pages")
-// let bookStatus = document.getElementById("book-status")
 const bookStatus = document.getElementById("book-status")
 
 // ****Event listeners****
+
+// Load book cards from localStorage
+document.addEventListener("DOMContentLoaded", getBooks)
 
 // Open new book form
 formBtn.onclick = function () {
@@ -59,6 +61,7 @@ function addBookToLibrary() {
     }
 
     myLibrary.push(book)
+    saveToLocalStorage(book)
     closeForm()
 
     // Update displayed book cards after new book is added
@@ -122,11 +125,41 @@ function closeForm() {
     modalForm.style.display = "none"
 }
 
-// displayLibrary(myLibrary);
+function saveToLocalStorage(book) {
+    // Check if book already exist
+    let books;
+    if (localStorage.getItem("books") === null) {
+        books = []
+    } else {
+        books = JSON.parse(localStorage.getItem("books"))
+    }
+
+    books.push(book)
+    localStorage.setItem("books", JSON.stringify(books))
+}
+
+function getBooks() {
+    // Check if book already exist
+    let books;
+    if (localStorage.getItem("books") === null) {
+        books = []
+    } else {
+        books = JSON.parse(localStorage.getItem("books"))
+    }
+
+    books.forEach(function(book){
+        const existingBook = new Book(book.title, book.author, book.pages, book.read)
+
+        myLibrary.push(existingBook)
+        displayLibrary(myLibrary)
+    })
+
+}
+
 
 // Close modal when user clicks outside form
-window.onclick = function(e) {
-    if(e.target == modalForm) {
+window.onclick = function (e) {
+    if (e.target == modalForm) {
         closeForm()
     }
 }
