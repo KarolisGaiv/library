@@ -47,8 +47,11 @@ body {
 }
 
 .library-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     margin: 20px;
-    width: 500px;
+    min-width: 90%;
 }
 
 .book-card {
@@ -61,7 +64,7 @@ body {
     justify-content: space-between;
     margin: 10px;
     padding: 20px 0;
-    width: 80%;
+    max-width: 500px;
 }
 
 .btnWrapper {
@@ -101,7 +104,7 @@ body {
 
 .detailsWrapper {
     margin-left: 10px;
-    max-width: 250px;
+    max-width: 60%;
 }
 
 .book-detail {
