@@ -33,7 +33,7 @@ addBookBtn.addEventListener("click", addBookToLibrary)
 function Book(title, author, pages, read) {
     this.title = title
     this.author = author
-    pages ? this.pages = `${pages} Pages` : this.pages = "0 Pages"
+    this.pages = pages
     read ? this.read = "Read" : this.read = "Wish to Read"
 }
 
@@ -79,23 +79,32 @@ function displayLibrary(arr) {
         book.classList.add("book-card")
         book.setAttribute('data-index', `${index}`);
         bookContainer.appendChild(book)
+        // Create book details wrapper
+        detailsWrapper = document.createElement("div")
+        detailsWrapper.classList.add("detailsWrapper")
+        book.appendChild(detailsWrapper)
         // Iterate through each book object, add book obj contents to book card div
         Object.keys(item).forEach(key => {
+            const bookInfo = key[0].toUpperCase() + key.substring(1)
             content = document.createElement("div")
-            content.classList.add(`${key}`)
-            content.innerHTML = `${item[key]}`
-            book.appendChild(content)
+            content.classList.add("book-detail")
+            content.innerHTML = `${bookInfo}: ${item[key]}`
+            detailsWrapper.appendChild(content)
         })
+        // Create buttons wrapper
+        btnWrapper = document.createElement("div")
+        btnWrapper.classList.add("btnWrapper")
+        book.appendChild(btnWrapper)
         // Create status change button
         statusBtn = document.createElement("button")
         statusBtn.classList.add("statusBtn")
         statusBtn.innerHTML = "Change Status"
-        book.appendChild(statusBtn)
+        btnWrapper.appendChild(statusBtn)
         // Create delete button
         deleteBook = document.createElement("button")
         deleteBook.classList.add("deleteBtn")
         deleteBook.innerHTML = "Delete Book"
-        book.appendChild(deleteBook)
+        btnWrapper.appendChild(deleteBook)
     })
 
     const changeStatusBtn = document.querySelectorAll(".statusBtn")
@@ -150,6 +159,7 @@ function getBooks() {
 
     books.forEach(function (book) {
         const existingBook = new Book(book.title, book.author, book.pages, book.read)
+        console.log(book);
 
         myLibrary.push(existingBook)
         displayLibrary(myLibrary)
