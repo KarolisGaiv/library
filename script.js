@@ -35,19 +35,18 @@ function Book(title, author, pages, read) {
     this.author = author
     this.pages = pages
     read ? this.read = "Read" : this.read = "Wish to Read"
+    // this.read = read
 }
 
 // Function changes "Read" status
 Book.prototype.toogleReadStatus = function (currStatus, index) {
-    if (currStatus == "Read: Read") {
+    if (currStatus == "Read") {
         myLibrary[index].read = "Wish to Read"
     } else {
         myLibrary[index].read = "Read"
     }
     displayLibrary(myLibrary)
 }
-
-
 
 // *****Functions******
 
@@ -87,7 +86,11 @@ function displayLibrary(arr) {
             const bookInfo = key[0].toUpperCase() + key.substring(1)
             content = document.createElement("div")
             content.classList.add("book-detail")
-            content.innerHTML = `${bookInfo}: ${item[key]}`
+            content.innerHTML = `${bookInfo}: `
+            data = document.createElement("span")
+            data.classList.add("book-data")
+            data.innerHTML = `${item[key]}`
+            content.appendChild(data)
             detailsWrapper.appendChild(content)
         })
         // Create buttons wrapper
@@ -109,9 +112,10 @@ function displayLibrary(arr) {
     const changeStatusBtn = document.querySelectorAll(".statusBtn")
     changeStatusBtn.forEach((button) => {
         button.onclick = function (e) {
-            let currentStatus = e.target.parentElement.previousSibling.lastChild.innerHTML
+            let currentStatus = e.target.parentElement.previousSibling.lastChild.lastChild.innerHTML
             let indexToChange = e.target.parentElement.parentElement.attributes["data-index"].value
             myLibrary[indexToChange].toogleReadStatus(currentStatus, indexToChange)
+            updateLocalStatus(indexToChange)
         }
     })
 
@@ -135,7 +139,7 @@ function closeForm() {
 }
 
 function saveToLocalStorage(book) {
-    // Check if book already exist
+    // Check if books already exist
     let books;
     if (localStorage.getItem("books") === null) {
         books = []
@@ -148,7 +152,7 @@ function saveToLocalStorage(book) {
 }
 
 function getBooks() {
-    // Check if book already exist
+    // Check if books already exist
     let books;
     if (localStorage.getItem("books") === null) {
         books = []
@@ -165,7 +169,7 @@ function getBooks() {
 }
 
 function removeLocalBook(book) {
-    // Check if book already exist
+    // Check if books already exist
     let books;
     if (localStorage.getItem("books") === null) {
         books = []
@@ -174,6 +178,24 @@ function removeLocalBook(book) {
     }
 
     books.splice(book, 1)
+    localStorage.setItem("books", JSON.stringify(books))
+}
+
+function updateLocalStatus(bookIndex) {
+    let books;
+    if (localStorage.getItem("books") === null) {
+        books = []
+    } else {
+        books = JSON.parse(localStorage.getItem("books"))
+    }
+
+    let currentStatus = books[bookIndex].read
+    if (currentStatus == "Read") {
+        books[bookIndex].read = "Wish to Read"
+    } else {
+        books[bookIndex].read = "Read"
+    }
+
     localStorage.setItem("books", JSON.stringify(books))
 }
 
