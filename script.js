@@ -10,7 +10,7 @@ const bookContainer = document.querySelector(".library-wrapper")
 let bookName = document.getElementById("book-name")
 let bookAuthor = document.getElementById("book-author")
 let bookPages = document.getElementById("book-pages")
-const bookStatus = document.getElementById("book-status")
+let bookStatus = document.getElementById("book-status")
 
 // ****Event listeners****
 
@@ -34,8 +34,12 @@ function Book(title, author, pages, read) {
     this.title = title
     this.author = author
     this.pages = pages
-    read ? this.read = "Read" : this.read = "Wish to Read"
-    // this.read = read
+
+    if (read == "Wish to Read") {
+        this.read = "Wish to Read"
+    } else {
+        this.read = "Read"
+    }
 }
 
 // Function changes "Read" status
@@ -52,7 +56,16 @@ Book.prototype.toogleReadStatus = function (currStatus, index) {
 
 function addBookToLibrary() {
     const previousLibrary = myLibrary.length
-    const book = new Book(bookName.value, bookAuthor.value, bookPages.value, bookStatus.checked)
+    let readStatus
+
+    // Check if customer has checkbox marked when entering new book
+    if(bookStatus.checked) {
+        readStatus = "Read"
+    } else {
+        readStatus = "Wish to Read"
+    }
+
+    const book = new Book(bookName.value, bookAuthor.value, bookPages.value, readStatus)
 
     if (bookName.value == "" || bookAuthor.value == "") {
         return false;
@@ -195,7 +208,6 @@ function updateLocalStatus(bookIndex) {
     } else {
         books[bookIndex].read = "Read"
     }
-
     localStorage.setItem("books", JSON.stringify(books))
 }
 
@@ -206,3 +218,5 @@ window.onclick = function (e) {
         closeForm()
     }
 }
+
+console.log(localStorage);
